@@ -1,0 +1,370 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Ensure dropdown menus appear above map and other UI elements */
+[data-radix-portal] {
+  z-index: 10000 !important;
+}
+
+[data-radix-popper-content-wrapper] {
+  z-index: 10000 !important;
+}
+
+@layer base {
+  /* Dark Theme - Xandeum Brand Colors */
+  :root {
+    --background: 240 50% 12%;          /* #1a1a3e - Deep navy */
+    --foreground: 0 0% 95%;             /* Near white text */
+
+    --card: 240 45% 15%;                /* Lighter navy for cards */
+    --card-foreground: 0 0% 95%;
+
+    --popover: 240 45% 15%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 38 65% 56%;              /* #d4a84b - Golden orange */
+    --primary-foreground: 240 50% 12%;
+
+    --secondary: 240 40% 20%;           /* Muted navy */
+    --secondary-foreground: 0 0% 90%;
+
+    --muted: 240 35% 25%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 180 70% 45%;              /* Cyan teal */
+    --accent-foreground: 240 50% 12%;
+
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 0 0% 95%;
+
+    --warning: 45 90% 55%;
+    --warning-foreground: 240 50% 12%;
+
+    --border: 240 35% 22%;
+    --input: 240 35% 22%;
+    --ring: 38 65% 56%;                 /* Golden ring focus */
+
+    --radius: 0.5rem;                   /* Reduced for flatter look */
+
+    /* Custom tokens */
+    --surface: 240 45% 13%;
+    --elevated: 240 42% 17%;
+
+    --sidebar-background: 240 45% 13%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 38 65% 56%;
+    --sidebar-primary-foreground: 240 50% 12%;
+    --sidebar-accent: 240 40% 20%;
+    --sidebar-accent-foreground: 0 0% 90%;
+    --sidebar-border: 240 35% 22%;
+    --sidebar-ring: 38 65% 56%;
+  }
+
+  /* Light Theme */
+  .light {
+    --background: 0 0% 98%;             /* Near white */
+    --foreground: 240 50% 12%;          /* Deep navy text */
+
+    --card: 0 0% 100%;                  /* Pure white cards */
+    --card-foreground: 240 50% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 50% 12%;
+
+    --primary: 38 65% 50%;              /* Slightly darker gold for light bg */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 20% 94%;
+    --secondary-foreground: 240 50% 12%;
+
+    --muted: 240 15% 92%;
+    --muted-foreground: 240 20% 45%;
+
+    --accent: 180 60% 40%;              /* Darker teal for light bg */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --warning: 45 85% 48%;
+    --warning-foreground: 240 50% 12%;
+
+    --border: 240 15% 88%;
+    --input: 240 15% 88%;
+    --ring: 38 65% 50%;
+
+    --surface: 240 20% 97%;
+    --elevated: 0 0% 100%;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 240 50% 12%;
+    --sidebar-primary: 38 65% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 20% 94%;
+    --sidebar-accent-foreground: 240 50% 12%;
+    --sidebar-border: 240 15% 88%;
+    --sidebar-ring: 38 65% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer components {
+  /* Simplified shimmer for loading states */
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--muted) / 0.3) 0%,
+      hsl(var(--muted) / 0.5) 50%,
+      hsl(var(--muted) / 0.3) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+
+  /* Simple status dot - no glow */
+  .status-dot {
+    @apply w-1.5 h-1.5 rounded-full;
+  }
+}
+
+@layer utilities {
+  /* Simple fade-up animation */
+  .animate-fade-up {
+    animation: fadeUp 0.3s ease-out forwards;
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.3s ease-out forwards;
+  }
+
+  .animate-slide-out-right {
+    animation: slideOutRight 0.2s ease-out forwards;
+  }
+
+  .section-title {
+    @apply text-2xl font-semibold text-foreground tracking-tight;
+  }
+
+  .section-subtitle {
+    @apply text-sm text-muted-foreground mt-1;
+  }
+}
+
+/* Simplified keyframes */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Keep animations for dynamic components (ActivityFeed, etc.) */
+@keyframes slide-in-bottom {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-left {
+  0% {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes feed-item-enter {
+  0% {
+    transform: translateX(50px);
+    opacity: 0;
+    max-height: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+    max-height: 100px;
+  }
+}
+
+@keyframes rotate-slow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes live-dot {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+}
+
+@keyframes number-scroll {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse-soft {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
+}
+
+/* Utility classes for dynamic components */
+.animate-slide-in-bottom {
+  animation: slide-in-bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-feed-item {
+  animation: feed-item-enter 0.3s ease-out forwards;
+}
+
+.animate-rotate-slow {
+  animation: rotate-slow 120s linear infinite;
+}
+
+.animate-live-dot {
+  animation: live-dot 1.5s ease-in-out infinite;
+}
+
+.animate-number-scroll {
+  animation: number-scroll 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 3s ease-in-out infinite;
+}
+
+/* Staggered animation delays for dynamic components */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+.stagger-6 { animation-delay: 0.6s; }
+
+/* Network pulse canvas container - for LiveNetworkPulse */
+.network-pulse-container {
+  @apply relative w-full h-full overflow-hidden rounded-xl;
+  background: radial-gradient(ellipse at center, hsl(var(--card)) 0%, hsl(var(--background)) 100%);
+}
+
+/* Live indicator styles - for FloatingLiveIndicator */
+.live-indicator {
+  @apply relative flex items-center gap-2;
+}
+
+.live-indicator::before {
+  content: '';
+  @apply w-2 h-2 rounded-full bg-primary;
+  animation: live-dot 1.5s ease-in-out infinite;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse-soft,
+  .animate-rotate-slow,
+  .animate-live-dot {
+    animation: none;
+  }
+
+  .animate-slide-in-bottom,
+  .animate-slide-in-left,
+  .animate-slide-in-right,
+  .animate-feed-item,
+  .animate-number-scroll,
+  .animate-fade-up {
+    animation-duration: 0.01ms;
+  }
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Better focus states */
+*:focus-visible {
+  @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
+}
